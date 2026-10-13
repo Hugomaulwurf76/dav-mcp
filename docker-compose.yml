@@ -1,8 +1,7 @@
-version: '3.8'
-
 services:
   tsdav-mcp:
-    build: .
+    build:
+      context: https://github.com/Hugomaulwurf76/dav-mcp.git#reminder-v2
     container_name: tsdav-mcp-server
     restart: unless-stopped
     ports:
