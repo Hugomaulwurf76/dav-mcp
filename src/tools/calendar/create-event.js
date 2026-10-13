@@ -52,6 +52,10 @@ export const createEvent = {
         type: 'string',
         description: 'Event location (optional)',
       },
+      reminder_minutes: {
+        type: 'number',
+        description: 'Erinnerung in Minuten vor Beginn (optional)',
+      },
     },
     required: ['calendar_url', 'summary', 'start_date', 'end_date'],
   },
@@ -81,6 +85,11 @@ export const createEvent = {
       `SUMMARY:${summary}`,
       description ? `DESCRIPTION:${description}` : null,
       location ? `LOCATION:${location}` : null,
+      validated.reminder_minutes !== undefined ? 'BEGIN:VALARM' : null,
+      validated.reminder_minutes !== undefined ? 'ACTION:DISPLAY' : null,
+      validated.reminder_minutes !== undefined ? 'DESCRIPTION:Erinnerung' : null,
+      validated.reminder_minutes !== undefined ? `TRIGGER:-PT${validated.reminder_minutes}M` : null,
+      validated.reminder_minutes !== undefined ? 'END:VALARM' : null,
       'END:VEVENT',
       'END:VCALENDAR',
     ].filter(Boolean).join('\r\n');

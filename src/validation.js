@@ -319,6 +319,7 @@ export const createEventSchema = z.object({
   all_day: z.boolean().optional(),
   description: z.string().max(5000).optional(),
   location: z.string().max(500).optional(),
+  reminder_minutes: z.number().int().min(0).max(40320).optional(),
 }).strict().superRefine((data, ctx) => refineDateRange(data, ctx, {
   startKey: 'start_date',
   endKey: 'end_date',
